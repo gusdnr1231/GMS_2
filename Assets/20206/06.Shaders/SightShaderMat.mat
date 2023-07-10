@@ -55,16 +55,16 @@ Material:
     m_Ints: []
     m_Floats:
     - _EnableExternalAlpha: 0
-    - _PetSeeDistance: 4
-    - _PlayerSeeDistance: 2
+    - _PetSeeDistance: 5
+    - _PlayerSeeDistance: 2.6
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
     - _BackGround: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _PetPos: {r: 1.85, g: 2.34, b: 0, a: 0}
-    - _PlayerPos: {r: -2.78, g: -1.51, b: 0, a: 0}
+    - _PetPos: {r: 6.01, g: 2.34, b: 0, a: 0}
+    - _PlayerPos: {r: -5, g: -1.51, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &310301866444399328
