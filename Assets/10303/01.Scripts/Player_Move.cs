@@ -6,6 +6,7 @@ public class Player_Move : MonoBehaviour
 {
 
     private Rigidbody2D _rb;
+    [SerializeField] GameObject attack_1;
     [SerializeField]
     private float _speed = 0;
     private BoxCollider2D _coll;
@@ -16,10 +17,10 @@ public class Player_Move : MonoBehaviour
 
     void Update()
     {
-        PMove();
+        P_Move();
     }
 
-    void PMove()
+    void P_Move()
     {
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
