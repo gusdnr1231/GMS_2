@@ -5,11 +5,12 @@ using UnityEngine;
 public class Player_Move : MonoBehaviour
 {
 
-    private Rigidbody2D _rb;
     [SerializeField] GameObject attack_1;
-    [SerializeField]
-    private float _speed = 0;
+    [SerializeField] private float _speed = 0;
+    [SerializeField] private Vector2 inputVec;
     private BoxCollider2D _coll;
+    private Rigidbody2D _rb;
+    private Animator Ani;
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -22,9 +23,15 @@ public class Player_Move : MonoBehaviour
 
     void P_Move()
     {
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
-        _rb.velocity = new Vector2(x, y) * _speed;
+        inputVec.x = Input.GetAxis("Horizontal");
+        inputVec.y = Input.GetAxis("Vertical");
+    }
+
+    private void FixedUpdate()
+    {
+        Vector2 nextVec = inputVec.normalized * _speed * Time.deltaTime;
+        _rb.MovePosition(_rb.position + nextVec);
+        
     }
 
     private void Attack()
