@@ -25,6 +25,12 @@ public class Player_Move : MonoBehaviour
     {
         inputVec.x = Input.GetAxis("Horizontal");
         inputVec.y = Input.GetAxis("Vertical");
+
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            // (이거 하다 말았다)애니메이션 실행 Ani.
+        }
     }
 
     private void FixedUpdate()
