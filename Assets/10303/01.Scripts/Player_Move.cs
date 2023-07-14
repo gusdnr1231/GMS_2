@@ -11,14 +11,18 @@ public class Player_Move : MonoBehaviour
     private BoxCollider2D _coll;
     private Rigidbody2D _rb;
     private Animator Ani;
+    SpriteRenderer spriteRenderer;
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        Ani = GetComponent<Animator>();
     }
 
     void Update()
     {
         P_Move();
+        Skin();
     }
 
     void P_Move()
@@ -39,6 +43,47 @@ public class Player_Move : MonoBehaviour
         _rb.MovePosition(_rb.position + nextVec);
         
     }
+
+    private void Skin()
+    {
+        if (Input.GetButton("Horizontal"))
+        {
+            Ani.SetBool("UPidle", false);
+            spriteRenderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
+            Ani.SetBool("Side", true);
+            Ani.SetBool("Isrun", true);
+        }
+        else Ani.SetBool("Isrun", false);
+
+
+
+        if (Input.GetButton("Vertical"))
+        {
+            Ani.SetBool("Side", false);
+
+
+            if (Input.GetAxisRaw("Vertical") == -1)
+            {
+                Ani.SetBool("UPidle", false);
+                Ani.SetBool("Downrun", true);
+            }
+
+
+
+            if (Input.GetAxisRaw("Vertical") == 1)
+            {
+                Ani.SetBool("UPidle", true);
+                Ani.SetBool("UPrun", true);
+            }
+
+
+        }
+        else
+        {
+            Ani.SetBool("Downrun", false); Ani.SetBool("UPrun", false);
+        }
+
+        }
 
     private void Attack()
     {
