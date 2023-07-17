@@ -8,6 +8,7 @@ public class Player_Move : MonoBehaviour
     [SerializeField] GameObject attack_1;
     [SerializeField] private float _speed = 0;
     [SerializeField] private Vector2 inputVec;
+    [SerializeField] private GameObject AttackPoint;
     private BoxCollider2D _coll;
     private Rigidbody2D _rb;
     private Animator Ani;
@@ -23,6 +24,7 @@ public class Player_Move : MonoBehaviour
     {
         P_Move();
         Skin();
+        Attack();
     }
 
     void P_Move()
@@ -89,7 +91,7 @@ public class Player_Move : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.F))
         {
-            
+            AttackPoint.transform.position = inputVec;
         }
     }
 }
