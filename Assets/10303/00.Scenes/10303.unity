@@ -182,10 +182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e72ae072787e8e64cb9a1a02492b3263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack_1: {fileID: 1869607155447307641, guid: 99edfaf8ddf2be64caf30dd22ba0f155, type: 3}
   _speed: 6
   inputVec: {x: 0, y: 0}
-  AttackPoint: {fileID: 1869607155447307641, guid: 99edfaf8ddf2be64caf30dd22ba0f155, type: 3}
 --- !u!212 &397751241
 SpriteRenderer:
   m_ObjectHideFlags: 0
