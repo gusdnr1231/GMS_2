@@ -89,9 +89,22 @@ public class Player_Move : MonoBehaviour
 
     private void Attack()
     {
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            
+            if (Ani.GetBool("Side") == true)
+            {
+                Ani.SetTrigger("SIDEattack");
+            }
+            else if (Ani.GetBool("UPidle") == true)
+            {
+                Ani.SetTrigger("UPattack");
+            }
+            else
+            {
+                Ani.SetTrigger("DWattack");
+            }
+
+
         }
     }
 }
