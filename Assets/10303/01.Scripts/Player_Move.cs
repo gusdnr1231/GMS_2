@@ -8,6 +8,10 @@ public class Player_Move : MonoBehaviour
     
     [SerializeField] private float _speed = 0;
     [SerializeField] private Vector2 inputVec;
+    [SerializeField] private GameObject UpAttack;
+    [SerializeField] private GameObject SideAttack;
+    [SerializeField] private GameObject twoSideAttack;
+    [SerializeField] private GameObject DownAttack;
    
     private BoxCollider2D _coll;
     private Rigidbody2D _rb;
@@ -18,10 +22,14 @@ public class Player_Move : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         Ani = GetComponent<Animator>();
+
+        
     }
 
     void Update()
     {
+ 
+
         P_Move();
         Skin();
         Attack();
@@ -89,22 +97,71 @@ public class Player_Move : MonoBehaviour
 
     private void Attack()
     {
+        //UpAttack.SetActive(false);
+       // SideAttack.SetActive(false);
+        //DownAttack.SetActive(false);
+        
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (Ani.GetBool("Side") == true)
             {
                 Ani.SetTrigger("SIDEattack");
+            
             }
             else if (Ani.GetBool("UPidle") == true)
             {
                 Ani.SetTrigger("UPattack");
+                
             }
             else
             {
                 Ani.SetTrigger("DWattack");
+                
             }
+
+            StartCoroutine(Attacktool());
 
 
         }
+    }
+
+
+    IEnumerator Attacktool()
+    {
+        if(Ani.GetBool("Side") == true)
+        {
+            if(Input.GetAxisRaw("Horizontal") == -1)
+            {
+                yield return new WaitForSeconds(0.3f);
+                twoSideAttack.SetActive(true);
+               yield return new WaitForSeconds(0.2f);
+                twoSideAttack.SetActive(false);
+            }
+            else if(Input.GetAxisRaw("Horizontal") == 1)
+            {
+                yield return new WaitForSeconds(0.3f);
+                SideAttack.SetActive(true);
+                yield return new WaitForSeconds(0.2f);
+                SideAttack.SetActive(false);
+            }
+        }
+
+        else if(Ani.GetBool("UPidle") == true)
+        {
+            yield return new WaitForSeconds(0.3f);
+            UpAttack.SetActive(true);
+            yield return new WaitForSeconds(0.2f);
+            UpAttack.SetActive(false);
+        }
+
+        else
+        {
+            yield return new WaitForSeconds(0.3f);
+            DownAttack.SetActive(true);
+            yield return new WaitForSeconds(0.2f);
+            DownAttack.SetActive(false);
+        }
+
     }
 }
