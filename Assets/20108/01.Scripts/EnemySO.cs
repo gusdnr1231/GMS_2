@@ -9,9 +9,20 @@ public enum EnemyAttackType
     LongDis
 };
 
+public enum ElementType
+{
+    None,
+    Fire,
+    Water,
+	Earth,
+    Wind
+}
+
 [CreateAssetMenu(menuName = "SO/EnemyData")]
 public class EnemySO : ScriptableObject
 {
+    [Header("적 속성 및 공격 타입")]
+    public ElementType enemyElement = ElementType.None;
     public EnemyAttackType enemyType = EnemyAttackType.None;
     [Header("적 체력")]
     public float enemyHP = 0; //적 체력

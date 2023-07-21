@@ -5,31 +5,44 @@ using UnityEngine.Events;
 
 public class EnemyMain : PoolableMono
 {
-    private Transform BasePos;
+    private Transform basePos;
+    public Transform BasePos => basePos;
     [SerializeField] static private EnemySO EnemyType;
+	public LayerMask whatIsEnemy;
 
 	#region Àû ½ºÅÈ
-    private float enemyMaxHP = EnemyType.enemyHP;
-    private float enemyCurHP = 0;
-    private float enemySpeed = EnemyType.enemySpeed;
-    private float enemyAttack = EnemyType.enemyAttack;
-    private float enemyDelay = EnemyType.enemyDelay;
-    private float enemyDis = EnemyType.enemyDis;
-    private EnemyAttackType enemyType = EnemyType.enemyType;
+	public float enemyMaxHP = EnemyType.enemyHP;
+    public float enemyCurHP = 0;
+    public float enemySpeed = EnemyType.enemySpeed;
+    public float enemyAttack = EnemyType.enemyAttack;
+    public float enemyDelay = EnemyType.enemyDelay;
+    public float enemyDis = EnemyType.enemyDis;
+    public EnemyAttackType enemyAttackType = EnemyType.enemyType;
+    public ElementType enemyElement = EnemyType.enemyElement;
 	#endregion
 
-	private void Awake()
+    private bool isAttack = false;
+    public bool IsAttack => isAttack;
+
+    public EnemyAttack EnemyAttack;
+    public EnemyMove EnemyMove;
+
+    private void FixedUpdate()
     {
-        
+        if(enemyCurHP <= 0) GotoPool();
+
     }
 
     public override void Init()
     {
 		enemyCurHP = enemyMaxHP;
-		BasePos = transform.Find("BasePosition").GetComponent<Transform>();
+		basePos = transform.Find("BasePosition").GetComponent<Transform>();
+        EnemyAttack = GetComponent<EnemyAttack>();
+        EnemyAttack.SetAttackType(enemyAttackType);
+        EnemyMove = GetComponent<EnemyMove>();
 	}
 
-	public void GotoPool()
+    public void GotoPool()
 	{
 		PoolManager.Instance.Push(this);
 	}
