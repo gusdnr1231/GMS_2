@@ -63,7 +63,7 @@ Material:
     - _BackGround: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _PetPos: {r: -0.33898306, g: 0.3601694, b: 0, a: 0}
+    - _PetPos: {r: -5.1674256, g: -2.9241462, b: 0, a: 0}
     - _PlayerPos: {r: -3.28, g: -1.51, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
