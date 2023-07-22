@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/10303/01.Scripts/P_Weapon.cs.meta
-guid: 28c7a40325bf7b243ab9db48d90eae15
-========
-guid: 4671454e6c3ebe34c922b8ead2848d6e
->>>>>>>> 20108:Assets/20108/01.Scripts/GameManager.cs.meta
+guid: 8b5b7a75ae6c8334a8703462330478cb
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
