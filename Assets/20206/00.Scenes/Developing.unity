@@ -535,9 +535,11 @@ GameObject:
   - component: {fileID: 1018609999}
   - component: {fileID: 1018609998}
   - component: {fileID: 1018610000}
+  - component: {fileID: 1018610002}
+  - component: {fileID: 1018610001}
   m_Layer: 0
   m_Name: Pet
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -562,7 +564,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 5e8e3ba660bde924fb96e97294263be4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -583,8 +585,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0, g: 0.34117648, b: 0, a: 0.20392157}
+  m_Sprite: {fileID: 21300000, guid: 6c30a4b929205524a818602a2b9b149f, type: 3}
+  m_Color: {r: 0, g: 0.34117648, b: 0, a: 0.6313726}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -621,10 +623,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e20345f069ce62e4f8edf8dd697a2ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _materials: []
+  _mat: {fileID: 2100000, guid: 5e8e3ba660bde924fb96e97294263be4, type: 2}
+  defend: {fileID: 3761586304093660397, guid: 7b941edf8d4b3db4f84840ce369a1f4c, type: 3}
   mousescroll: 0
+  moveSpeed: 5
+  petHP: 8
   petState: 0
   elements: 0
+--- !u!61 &1018610001
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018609997}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 6, y: 6}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 6, y: 6}
+  m_EdgeRadius: 0
+--- !u!50 &1018610002
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018609997}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &1441073657
 GameObject:
   m_ObjectHideFlags: 0
