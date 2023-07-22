@@ -106,4 +106,10 @@ public class Pet : MonoBehaviour
         petHP = 8;
         petState = PetStates.Idle;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag != "Player")
+            petHP--;
+    }
 }
