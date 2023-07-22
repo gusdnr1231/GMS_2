@@ -4,10 +4,6 @@ using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using DG.Tweening;
-using Unity.VisualScripting;
-using Sequence = DG.Tweening.Sequence;
-using UnityEditorInternal;
-using System.Net;
 
 public class NagaMove : MonoBehaviour
 {

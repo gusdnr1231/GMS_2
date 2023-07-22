@@ -1,12 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEditor.ShaderGraph.Internal;
-using Unity.Burst.CompilerServices;
-using System;
-using UnityEngine.Events;
-using Unity.VisualScripting;
 
 public enum PetStates
 {
