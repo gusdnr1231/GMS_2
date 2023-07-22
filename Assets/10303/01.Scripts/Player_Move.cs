@@ -16,6 +16,7 @@ public class Player_Move : MonoBehaviour
     [SerializeField] private GameObject DownAttack;
 
     P_Hp P_HpCode;
+    NagaBody NagaDamege;
    
     private BoxCollider2D _coll;
     private Rigidbody2D _rb;
@@ -25,7 +26,7 @@ public class Player_Move : MonoBehaviour
     int DieCount = 5;
     void Start()
     {
-        
+        NagaDamege = FindObjectOfType<NagaBody>();
         P_HpCode = FindObjectOfType<P_Hp>();
         _rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -116,6 +117,7 @@ public class Player_Move : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
+            FindObjectOfType<NagaBody>().hit(2);
             if (Ani.GetBool("Side") == true)
             {
                 Ani.SetTrigger("SIDEattack");
