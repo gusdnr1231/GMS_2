@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Player_Move : MonoBehaviour
 {
+    private readonly int _petposHash = Shader.PropertyToID("_PlayerPos");
+    [SerializeField]
+    private Material _mat;
 
-    
     [SerializeField] private float _speed = 0;
     [SerializeField] private Vector2 inputVec;
     [SerializeField] private GameObject UpAttack;
@@ -23,6 +25,7 @@ public class Player_Move : MonoBehaviour
     int DieCount = 5;
     void Start()
     {
+        
         P_HpCode = FindObjectOfType<P_Hp>();
         _rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -33,7 +36,8 @@ public class Player_Move : MonoBehaviour
 
     void Update()
     {
- 
+        Vector4 pos = transform.position;
+        _mat.SetVector(_petposHash, pos);
 
         P_Move();
         Skin();
