@@ -33,6 +33,7 @@ public class Player_Move : MonoBehaviour
         P_Move();
         Skin();
         Attack();
+       
     }
 
     void P_Move()
@@ -163,5 +164,32 @@ public class Player_Move : MonoBehaviour
             DownAttack.SetActive(false);
         }
 
+    }
+
+
+    public IEnumerator Sick()
+    {
+        int count = 0;
+
+        while (count < 3)
+        {
+            spriteRenderer.color = new Color(1, 1, 1, 0.3f);
+            yield return new WaitForSeconds(0.25f);
+            spriteRenderer.color = new Color(1, 1, 1, 1f);
+            yield return new WaitForSeconds(0.25f);
+            count++;
+        }
+
+        
+    }
+
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+           StartCoroutine(Sick());
+        }
     }
 }
