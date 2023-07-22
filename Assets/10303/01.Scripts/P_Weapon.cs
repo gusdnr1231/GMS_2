@@ -5,6 +5,7 @@ using UnityEngine;
 public class P_Weapon : MonoBehaviour
 {
     public GameObject Enemy;
+    [SerializeField] GameObject Player;
     void Start()
     {
         
@@ -13,7 +14,7 @@ public class P_Weapon : MonoBehaviour
     
     void Update()
     {
-        
+        transform.position = Player.transform.position;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
