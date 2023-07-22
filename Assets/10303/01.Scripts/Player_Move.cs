@@ -12,13 +12,18 @@ public class Player_Move : MonoBehaviour
     [SerializeField] private GameObject SideAttack;
     [SerializeField] private GameObject twoSideAttack;
     [SerializeField] private GameObject DownAttack;
+
+    P_Hp P_HpCode;
    
     private BoxCollider2D _coll;
     private Rigidbody2D _rb;
     private Animator Ani;
     SpriteRenderer spriteRenderer;
+
+    int DieCount = 5;
     void Start()
     {
+        P_HpCode = FindObjectOfType<P_Hp>();
         _rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         Ani = GetComponent<Animator>();
@@ -33,7 +38,9 @@ public class Player_Move : MonoBehaviour
         P_Move();
         Skin();
         Attack();
-       
+        P_Die();
+
+
     }
 
     void P_Move()
@@ -171,7 +178,7 @@ public class Player_Move : MonoBehaviour
     {
         int count = 0;
 
-        while (count < 3)
+        while (count < 2)
         {
             spriteRenderer.color = new Color(1, 1, 1, 0.3f);
             yield return new WaitForSeconds(0.25f);
@@ -189,7 +196,18 @@ public class Player_Move : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
+           FindObjectOfType<P_Hp>().Damege();
+            DieCount -= 1;
            StartCoroutine(Sick());
+        }
+    }
+
+
+    public void P_Die()
+    {
+       if(DieCount == 0)
+        {
+            Destroy(gameObject);
         }
     }
 }
