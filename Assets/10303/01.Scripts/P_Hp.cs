@@ -23,8 +23,6 @@ public class P_Hp : MonoBehaviour
 
     public void Damege()
     {
-
-
         HpGage.value -= 0.2f;
     }
 
