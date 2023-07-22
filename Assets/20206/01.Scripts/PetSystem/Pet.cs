@@ -1,7 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using DG.Tweening;
+using UnityEditor.ShaderGraph.Internal;
+using Unity.Burst.CompilerServices;
+using System;
+using UnityEngine.Events;
+using Unity.VisualScripting;
 
 public enum PetStates
 {
@@ -10,18 +15,26 @@ public enum PetStates
 
 public enum Elements
 {
-    Water=0, Wind,Fire, Ground
+    Water=0, Wind,Fire, Ground  ,Base
 }
 
 public class Pet : MonoBehaviour
 {
+    private readonly int _petposHash = Shader.PropertyToID("_PetPos");
+    Vector4[] colors = { new Vector4(0,0,1,1), new Vector4(0, 0.4f, 0, 1), new Vector4(1, 0, 0, 1), new Vector4(139/255f, 69/255f, 19/255f, 1), new Vector4(1,1,0 ,1) };
     [SerializeField]
-    List<Material> _materials;
-    Vector4[] colors = { new Vector4(0,0,1,1), new Vector4(0, 0.4f, 0, 0.2f), new Vector4(1, 0, 0, 1), new Vector4(139/255f, 69/255f, 19/255f, 1) };
+    private Material _mat;
     SpriteRenderer _spriteRenderer;
-    Camera _cam;
+    
+    [SerializeField]
+    GameObject defend;
     [SerializeField]
     float mousescroll=0;
+    [SerializeField]
+    float moveSpeed = 5;
+
+    public float petHP = 8;
+    GameObject player;
     
     public PetStates petState = PetStates.Idle;
     public Elements elements = Elements.Water;
@@ -29,38 +42,68 @@ public class Pet : MonoBehaviour
     private void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _cam = Camera.main;
     }
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0) && petState!=PetStates.Healing) 
+        Vector4 pos = transform.position;
+        _mat.SetVector(_petposHash, pos);
+        if(petState == PetStates.Idle && player != null)
+            transform.position = player.transform.position;
+        if(Input.GetMouseButtonDown(0) && petState!=PetStates.Healing&&petState!=PetStates.Moving) 
         {
-            Moving();
+            petState = PetStates.Moving;
+            StartCoroutine(Moving());
         }
-        if(Input.GetMouseButtonDown(1) && petState!=PetStates.Healing) 
+        if(Input.GetMouseButtonDown(1) && petState!=PetStates.Healing && petState!= PetStates.Moving) 
         {
-            Defending();
+            petState = PetStates.Defending;
+            StartCoroutine(Defending());
         }
-        if((int)elements == 0 && (Input.GetAxisRaw("Mouse ScrollWheel") < 0))
-            elements = Elements.Ground;
-        else
-            elements = (Elements)((Input.GetAxisRaw("Mouse ScrollWheel") * 10 + (int)elements)%4);
+        mousescroll += Input.GetAxisRaw("Mouse ScrollWheel") * 10;
+        mousescroll = mousescroll % 50;
+        if (mousescroll < 0)
+            mousescroll = 15;
+        elements = (Elements)(mousescroll%5);
         _spriteRenderer.color = colors[(int)elements];
+        if (petHP <= 0)
+            StartCoroutine(Healing());
     }
 
-    void Moving()
+    IEnumerator Moving()
     {
-        Ray ray = _cam.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        Vector3 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        dir.z = 0;
+        transform.DOMove(dir, Vector3.Distance(transform.position, dir) / moveSpeed);
+        yield return new WaitForSeconds(Vector3.Distance(transform.position, dir) / moveSpeed);
+        petState = PetStates.Idle;
+    }
+
+    IEnumerator Defending()
+    {
+        Vector3 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        dir.z = 0;
+        if (Vector3.Distance(dir, transform.position) > 5)
+            yield return 0;
+        else
         {
-            
-            
+            GameObject def = Instantiate(defend,transform.position,Quaternion.identity);
+            def.transform.DOMove(dir, 1);
+            def.transform.DOScale(def.transform.localScale * 1.5f, 1);
+            def.GetComponent<SpriteRenderer>().color = colors[(int)elements];
+            yield return new WaitForSeconds(4);
+            Destroy(def);
+            petState = PetStates.Idle;
         }
     }
 
-    void Defending()
+    IEnumerator Healing()
     {
-
+        petState = PetStates.Healing;
+        transform.DOPause();
+        yield return transform.DOMove(player.transform.position,Vector3.Distance(player.transform.position,transform.position) / (moveSpeed*2));
+        yield return new WaitForSeconds(24);
+        petHP = 8;
+        petState = PetStates.Idle;
     }
 }
