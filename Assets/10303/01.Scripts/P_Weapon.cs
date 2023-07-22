@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class P_Weapon : MonoBehaviour
 {
-    
+    public GameObject Enemy;
     void Start()
     {
         
@@ -20,7 +20,7 @@ public class P_Weapon : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            Debug.Log("Hi, bro");
+            Destroy(Enemy.gameObject);
         }
     }
 }

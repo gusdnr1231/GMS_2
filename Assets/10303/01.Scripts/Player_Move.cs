@@ -131,14 +131,14 @@ public class Player_Move : MonoBehaviour
     {
         if(Ani.GetBool("Side") == true)
         {
-            if(Input.GetAxisRaw("Horizontal") == -1)
+            if (spriteRenderer.flipX)
             {
                 yield return new WaitForSeconds(0.3f);
                 twoSideAttack.SetActive(true);
                yield return new WaitForSeconds(0.2f);
                 twoSideAttack.SetActive(false);
             }
-            else if(Input.GetAxisRaw("Horizontal") == 1)
+            else
             {
                 yield return new WaitForSeconds(0.3f);
                 SideAttack.SetActive(true);
